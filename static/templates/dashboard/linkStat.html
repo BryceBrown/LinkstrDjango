@@ -1,0 +1,100 @@
+<div class="row">
+	<a id="StatTitle" target="_blank" class="stat_title" ng-bind="link.displayUrl"></a>
+	<div class="btn-group pull-right">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		  	<div id="SectionTitleButton" style="display: inline;" ng-bind="currentSection"></div> <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a id="ClicksButton" ng-click="clickStats()">Clicks</a></li>
+		    <li><a id="CountriesButton" ng-click="countryStats()" >Countries</a></li>
+		    <li><a id="BrowsersButton" ng-click="browserStats()">Browsers</a></li>
+		    <li><a id="DevicesButton" ng-click="deviceStats()">Devices</a></li>
+		    <li><a id="OSButton" ng-click="osStats()">Operating Systems</a></li>
+		  </ul>
+		</div>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Period <span class="caret"></span></button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a id="MonthLink" ng-click="setPeriod('Month')">This Month</a></li>
+		    <li><a id="ThreeMonthLink" ng-click="setPeriod('ThreeMonth')" >Last Three Months</a></li>
+		    <li><a id="AllTimeLink" ng-click="setPeriod('')">All time</a></li>
+		  </ul>
+		</div>
+		<button id="ShareButton" type="button" class="btn btn-primary btn-default" ng-click="shareLink()">Share</button>
+		<button id="DeleteButton" type="button" class="btn btn-danger btn-default" ng-click="decomission()">Decomission</button>
+	</div>
+</div><br />
+<div class="row">
+	<div id="ClickDiv" class="container" ng-show="currentSection == 'Clicks'">
+		<h2>Clicks</h2><br />
+		<div class="chart_container">
+		        <div class="chart" id="chart"></div>
+		        <div class="y_axis" id="y_axis"></div>
+		</div>
+		<div id="legend"></div>
+	</div>
+	<div id="BrowserDiv" class="container" ng-show="currentSection == 'Browsers'">
+		<div class="col-md-6">
+			<h2>Browsers</h2>
+			<div id="BrowserChart"></div>
+		</div>
+		<div class="col-md-4">
+			<table id="BrowserTableData" class="table">
+				<thead>
+					<tr>
+						<th>Browser</th>
+						<th>Clicks</th>
+						<th>Percentage</th>
+					</tr>
+				</thead>
+				<tbody id="BrowserTableBody">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="CountryDiv" class="container" ng-show="currentSection == 'Countries'">
+			<div class="map col-md-10" id="WorldMapStats"></div>
+	</div>
+	<div id="OSDiv" class="container" ng-show="currentSection == 'Operating Systems'">
+		<div class="col-md-6">
+			<h2>Operating Systems</h2>
+			<div id="OSChart"></div>
+		</div>
+		<div class="col-md-4">
+			<table id="OSTableData" class="table">
+				<thead>
+					<tr>
+						<th>OS</th>
+						<th>Clicks</th>
+						<th>Percentage</th>
+					</tr>
+				</thead>
+				<tbody id="OsTableBody">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="DeviceDiv" class="container" ng-show="currentSection == 'Devices'">
+		<div class="col-md-6">
+			<h2>Devices</h2>
+			<div id="DeviceChart"></div>
+		</div>
+		<div class="col-md-4">
+			<table id="DevicesDataTable" class="table">
+				<thead>
+					<tr>
+						<th>Device</th>
+						<th>Clicks</th>
+						<th>Percentage</th>
+					</tr>
+				</thead>
+				<tbody id="DevicesTableBody">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

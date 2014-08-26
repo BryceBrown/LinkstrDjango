@@ -1,0 +1,16 @@
+.big_logo {
+	position: absolute;
+	top: 200px;
+	left: 25%;
+	width: 50%
+}
+
+.carousel_max_dimensions {
+	max-width: 800px;
+	height: 450px;
+}
+
+.learn_more_button {
+	font-size: 40px;
+	height:100px;
+}

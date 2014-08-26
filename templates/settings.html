@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block javascript %}
+<script src="{{ STATIC_PREFIX }}js/frontend/settings.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container" style="min-height:800px">
+	<div class="row">
+		<h1 id="CompanyName">Settings</h1>
+		<br />
+	</div>
+	{% if message %}
+	<div class="row alert {% if mtype == '2' %}alert-success{% endif %} {% if mtype == '1' %}alert-danger{% endif %} {% if mtype == '0' %}alert-info{% endif %}">
+		{{ message }}
+	</div>
+	{% endif %}
+	<div class="row">
+		<ul class="nav nav-tabs">
+		  <li class="active"><a href="#Users" data-toggle="tab">Users</a></li>
+		  <li><a href="#Domains" data-toggle="tab">Domains</a></li>
+		  <!--<li><a href="#Reports" data-toggle="tab">Reports</a></li>-->
+		  <li><a href="#Intersticial" data-toggle="tab">Intersticials</a></li>
+		</ul>
+		<div class="tab-content">
+		  <div class="tab-pane fade in active" id="Users">
+			  <div class="container">
+			  <br />
+			  	<div class="row">
+			  		<button id="UserInvitesButton" class="btn btn-lg pull-right">Invites Left: </button>
+			  	</div>
+			  	<div class="row">
+			  		<table class="table table-hover">
+				  		<thead>
+				  			<tr>
+					  			<th>User</th>
+					  			<th>Email</th>
+					  			<th>Activated</th>
+					  			<th>Admin</th>	
+				  			</tr>
+				  		</thead>
+				  		<tbody id="UserRows">
+				  			
+				  		</tbody>
+			  		</table>
+			  	</div>
+			  </div>
+		  </div>
+		  <div class="tab-pane fade" id="Domains">
+			  <div class="container">
+			  <br />
+			  	<div class="row">
+			  		All custom domains must have their DNS records pointed at 173.194.110.226<button id="AddDomainButton" class="btn btn-lg pull-right">Domains Left: </button>
+			  	</div>
+			  	<div class="row">
+				  	<div class="table-responsive">
+				  		<table class="table table-hover">
+					  		<thead>
+					  			<tr>
+					  				<td>Domain</td>
+					  				<td>Configured</td>
+					  				<td>Interstitial</td>
+					  			</tr>
+					  		</thead>
+					  		<tbody id="DomainRows">
+					  			<tr>
+					  				<td>goli.us</td>
+					  				<td>Yes</td>
+					  				<td>No</td>
+					  			</tr>
+				  			</tbody>
+				  		</table>
+				  	</div>
+			  	</div>
+			  	
+			  </div>
+		  </div>
+		  <!-- <div class="tab-pane fade" id="Reports">
+			  <div class="container" id="ReportSection">
+			  	<h1>Coming Soon!</h1>
+			  </div>
+		  </div> -->
+		  <div class="tab-pane fade" id="Intersticial">
+			  <div class="container" id="IntersticialSection">
+			  <br />
+			  	<div class="row">
+			  		<button id="AddIntersticialButton" class="btn btn-lg pull-right">Add Intersticial</button>
+			  	</div>
+			  	<div class="row">
+			  		<div class="table-responsive">
+				  		<table class="table table-hover">
+				  			<thead>
+				  				<tr>
+				  					<td>Name</td>
+				  					<td>URL</td>
+				  					<td>Display Chance</td>
+				  					<td>Active</td>
+				  				</tr>
+				  			</thead>
+				  			<tbody id="IntersticialRows">
+
+				  			</tbody>
+				  		</table>
+			  		</div>
+			  	</div>
+			  </div>
+		  </div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<div style="text-align:right"><a href="/CancelAccount">Cancel Account</a></div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade middle_modal" id="EditDomainModal" style="top: 25%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Edit Domain</h4>
+      </div>
+      <div class="modal-body">
+      	<form id="AddEditDomainForm" method="POST" role="form-horizontal" action="/Post/AddEditDomain">
+        {% csrf_token %}
+      		<div class="form-group">
+		    	<label for="DomainName">Enter the domain you wish to add/edit</label>
+		    	<input type="url" class="form-control" id="DomainName" name="Domain" placeholder="Enter Url">
+		  	</div>
+      		<div class="form-group" id="DomainInterstitialGroup">
+		    	<label for="DomainInterstitital">Interstitial for domain</label>
+		    	<select class="form-control" id="DomainInterstititalOption" name="DomainInterstitital" placeholder="Enter Url">
+		    		<option value="-1">None</option>
+		    	</select>
+		  	</div>
+			<input type="hidden" name="DomainId" id="DomainId" value="-1" />
+      	</form>
+  		<div class="form-group">
+  			<button class="btn btn-block" id="TestDomainButton" >Test Domain</button>
+	  	</div>
+	  	<div id="DomainCheckLoadingDiv" class="center">
+	  		<img src="{{ STATIC_URL }}img/loading_gif.gif" width="50" height="50" class="hidden" id="DomainTestingImage" />
+	  		<div class="alert alert-success hidden" id="DomainTestResultDiv"></div>
+	  	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="DeleteDomainButton">Delete</button>
+        <button type="button" class="btn btn-default" id="AddEditDomainButton">Add/Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -->
+
+<div class="modal fade middle_modal" id="AddUserModal" style="top: 25%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Add/Edit User</h4>
+      </div>
+      <div class="modal-body">
+	    <form role="form-horizontal" method="POST" id="AddRemoveUserRequestForm" action="/Post/AddUserRequest/">
+	        {% csrf_token %}
+      		<div class="form-group">
+		    	<label for="Email" >Enter the email for the user you wish to add/edit</label>
+		    	<input type="text" class="form-control" id="Email" name="Email" placeholder="Email">
+		  	</div>
+			<input type="hidden" id="userinviteid" value="-1" name="userinviteid">
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="DeleteUserInvite">Delete</button>
+        <button type="button" class="btn btn-default" id="AddUserButton">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade middle_modal" id="EditDeleteUserModal" style="top: 25%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Add/Edit User</h4>
+      </div>
+      <div class="modal-body">
+	    <form role="form-horizontal" method="POST" id="AddRemoveUserForm" action="/Post/AddUserInvite/">
+	        {% csrf_token %}
+	        <h1 id="EditDeleteUsername"></h1>
+	         <div class="checkbox">
+			    <label>
+			      <input type="checkbox" id="UserIsAdmin" name="UserIsAdmin"> Administrator
+			    </label>
+			  </div>
+			<input type="hidden" id="userid" value="-1" name="userid">
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="DeleteUserButton">Delete</button>
+        <button type="button" class="btn btn-default" id="AddUserButton">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade middle_modal" id="AddEditInterstitialModal" style="top: 25%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Add/Edit Interstitial</h4>
+      </div>
+      <div class="modal-body">
+	    <form role="form-horizontal" method="POST" id="AddEditInterstitialForm">
+	        {% csrf_token %}
+      		<div class="form-group">
+		    	<label for="InterstitialName">Enter a name for the Interstitial</label>
+		    	<input type="text" class="form-control" name="InterstitialName" id="InterstitialName" placeholder="Enter a name">
+		  	</div>
+      		<div class="form-group">
+		    	<label for="InterstitialUrl">Enter a URL for the Interstitial</label>
+		    	<input type="text" class="form-control" name="InterstitialUrl" id="InterstitialUrl" placeholder="Enter a URL">
+		  	</div>
+      		<div class="form-group">
+		    	<label for="DisplayChance">Display chance of interstitial</label>
+		    	<input type="text" class="form-control" name="DisplayChance" id="DisplayChance" placeholder="Enter a Display chance (0-100)">
+		  	</div>
+		  	<div class="checkbox">
+			    <label>
+			    	<input type="checkbox" id="InterstitialActive" name="InterstitialActive"> Activate Interstitial
+				</label>
+			</div>
+			<input type="hidden" name="InterstitialId" id="InterstitialId" value="-1" />
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="DeleteInterstitialButton">Delete</button>
+        <button type="button" class="btn btn-default" id="AddEditInterstitialButton">Add/Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

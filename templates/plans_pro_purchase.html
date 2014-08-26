@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+.learn_more_button {
+	font-size: 40px;
+	height:75px;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container" style="min-height:500px;">
+<br />
+	<div class="row">
+			<img src="{{STATIC_URL}}img/logo_large.png" class="img-responsive">
+	</div>
+	<div class="row">
+		<h1>Signup now and recieve a 30 day free trial!</h1>
+		<p>Following the trial, you will be billed 20$ a month. You can cancel the service at any time.</p>
+	</div><br /><br />
+	<div class="row">
+	Payments made via Stripe<br /><br />
+		<form action="{{ post_action }}" method="POST">
+        {% csrf_token %}
+		  <script
+		    src="https://checkout.stripe.com/checkout.js" class="stripe-button "
+		    data-key="pk_live_1eg7TemFdg940UqRKY26403L"
+		    data-image="{{ STATIC_PREFIX }}img/LinkstrLogo_120.png"
+		    data-name="Linkstr"
+		    data-description="{{ plan_name }}"
+		    data-amount="">
+		  </script>
+		</form>
+		</form>
+	</div>
+</div><br /><br /><br /><br />
+
+</div>
+</noscript>
+
+{% endblock %}

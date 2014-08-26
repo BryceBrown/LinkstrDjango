@@ -1,0 +1,13 @@
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.middle_modal {
+	top: 25%;
+}
+
+body {
+	min-height:700px;
+}

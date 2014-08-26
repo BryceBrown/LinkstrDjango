@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="container" style="min-height:800px">
+	<div class="row">
+		<h1>Cancel Account</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<form role="form" method="POST" action="/Post/CancelAccount/">
+                {% csrf_token %}
+				<div class="form-group">
+					<label for="reason">Reason For Cancelling</label>
+					<select id="reason" name="reason" required>
+						<option value="6">Please select a reason for cancelling</option>
+						<option value="0">The service is too expensive</option>
+						<option value="1">There are too many bugs in the software</option>
+						<option value="2">Customer Service</option>
+						<option value="3">Lack of Features</option>
+						<option value="4">I don't use Linkstr anymore</option>
+						<option value="5">I have switched to another service</option>
+						<option value="6">Other</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="explanation">Care to share a few words as to why you are cancelling your account?
+					It will help us create a better experience in the future.</label>
+					<textarea class="form-control" name="explanation" rows="6"></textarea>
+				</div>
+				<div class="form-group">
+  					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

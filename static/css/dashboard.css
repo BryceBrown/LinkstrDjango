@@ -1,0 +1,134 @@
+.user_info {
+	height: 100%;
+}
+
+.link_click_buttons {
+	float: right;
+}
+
+.stat_title {
+	font-size: 20px;
+	display: inline;
+	margin-left: 20px;
+}
+
+.graph_icon {
+	float: right;
+}
+
+.domain_stat_text {
+	font-size: 45px;
+}
+
+.current_domain {
+	display: inline;
+}
+
+.new_link_size {
+	font-size: 30px;
+}
+
+.share_img_height {
+	height: 30px;
+}
+
+.map {
+	height: 400px;
+}
+
+.inline_chart {
+	display: inline;
+}
+
+.color_box {
+	width:10px;
+	height:10px;
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.link_icon {
+	width: 32px;
+	height: 32px;
+}
+
+.fly_in_left {
+	 -webkit-animation:  left_fly_in 1s; /* Safari 4+ */
+	 -moz-animation:     left_fly_in 1s; /* Fx 5+ */
+	 -o-animation:      left_fly_in 1s; /* Opera 12+ */
+	 animation:         left_fly_in 1s; /* IE 10+ */
+}
+
+@-webkit-keyframes left_fly_in {
+	from {
+		left: -400px;
+	}
+
+	to {
+		left: 0px;
+	}
+}
+
+@keyframes left_fly_in {
+	from {
+		left: -400px;
+	}
+
+	to {
+		left: 0px;
+	}
+}
+
+@-webkit-keyframes show_fade_in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes show_fade_in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes hide_fade_out {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes hide_fade_out {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.show {
+	 -webkit-animation:  show_fade_in 1s; /* Safari 4+ */
+	 -moz-animation:     show_fade_in 1s; /* Fx 5+ */
+	 -o-animation:      show_fade_in 1s; /* Opera 12+ */
+	 animation:         show_fade_in 1s; /* IE 10+ */
+}
+
+.hidden {
+	 -webkit-animation:  hide_fade_out 1s; /* Safari 4+ */
+	 -moz-animation:     hide_fade_out 1s; /* Fx 5+ */
+	 -o-animation:      hide_fade_out 1s; /* Opera 12+ */
+	 animation:         hide_fade_out 1s; /* IE 10+ */
+}

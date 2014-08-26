@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+
+.question {
+	color: #3276b1;
+}
+
+.question_block {
+	margin-bottom: 15px;
+}
+
+.main_cont {
+	min-height: 600px;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container main_cont">
+	<div class="row">
+		<h1>Documentation</h1>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-md-6">
+			<div class="question_block">
+				<div class="question">How to add a user to your company</div>
+				Simple! Go to the company settings page (You have to be an admin for your company to do this) and click the User Invites: button! Simply fill out an email address
+			</div>
+			<div class="question_block">
+				<div class="question">What is an interstitial?</div>
+				An interstitial is a page that is shown before a user is redirected to a link that you have
+			</div>
+			<div class="question_block">
+				<div class="question">How to delete users</div>
+				Sometimes, breakups happen. Simply navigate to the setting screen, select the users tab, click on the user you wish to remove, and click the delete button. This will delete the selected user account. The owner of the company cannot be deleted.
+			</div>
+			<div class="question_block">
+				<div class="question">Add/Edit a domain</div>
+				In order to generate links on a domain that you own, you must first add the domain to our system.
+			</div>
+			<div class="question_block">
+				<div class="question">Remove a domain</div>
+				In order to remove a domain, simply select the domain from the list and click the delete button from the dialog that appears. Use this feature with caution, as when removed, all links associated with a domain will no longer function.
+			</div>
+			<div class="question_block">
+				<div class="question">Switch active domains</div>
+				In order to switch active domains, click the domain on the right that is currently active. This should bring up a modal that will allow you to switch domains.
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="question_block">
+				<div class="question">Generate a link</div>
+				In order to collect statistics, you must first generate some links! First, navigate to the dashboard. From here, simply paste a valid url into the Shorten URL field and click Go. Thats it! Once the url is generated, a dialog should appear to let you copy and paste it wherever you like. There are also several social media share buttons for your convenience.
+			</div>
+			<div class="question_block">
+				<div class="question">Decommission a link</div>
+				Sometimes, you no longer wish to see and monitor links in your dashboard. To remove a link from your list of generated links, simply select the link from the left side list to make it active, and press the Decommission button. Clicks on this link will still work, but you will no longer see it in your list of generated links.
+			</div>
+			<div class="question_block">
+				<div class="question">View Deactivated links</div>
+				This feature is not yet available.
+			</div>
+			<div class="question_block">
+				<div class="question">View statistics on a generated link</div>
+				First, make sure that you have the domain that the link was generated under. Then, simply find through paging or search for the link, and click on it! We have data from where the link was collected, What browser it was collected on, and how many times it was clicked each day.
+			</div>
+			<div class="question_block">
+				<div class="question">Generate a customized link</div>
+				On the Dashboard page, click the Customize button. Then, simply enter the URL you wish to use  and the link you wish it to point to.
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,351 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/dashboard.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_PREFIX }}css/rickshaw.min.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_PREFIX }}css/jquery-jvectormap-1.2.2.css">
+<style>
+.chart_container {
+        position: relative;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+}
+.chart {
+        display: inline-block;
+        margin-left: 40px;
+}
+.y_axis {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+}
+#legend {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 0 10px;
+}
+</style>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ STATIC_PREFIX }}js/thirdparty/rickshaw.min.js"></script>
+<script src="{{ STATIC_PREFIX }}js/thirdparty/Chart.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/jquery-linkify.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/bootstrap-tour.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/jquery-jvectormap-1.2.2.min.js"></script>
+  <script type="text/javascript"  src="{{ STATIC_PREFIX }}js/thirdparty/jquery-jvectormap-world-mill-en.js"></script>
+<script src="{{ STATIC_PREFIX }}js/thirdparty/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+	var reddit_url = "http://www.google.com"
+</script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/utility.js"></script>
+{% endblock %}
+{% block body %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=182088048660063";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="container" style="min-height: 700px">
+	<div class="row">
+		<div class="col-md-3"><!-- User info -->
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <div id="UserInfo">{{ user.username }}</div>
+			    <a href="/Settings">Settings</a>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="panel panel-default">
+			  <div class="panel-body hidden-xs hidden-sm">
+			  	<div class="input-group" id="UrlLink">
+        			{% csrf_token %}
+			  		<input type="url" id="ShortenUrl" class="form-control input-lg" placeholder="Enter a URL to shorten">
+			  		<span class="input-group-btn">
+				     	<button id="GenLinkButton" class="btn btn-lg" type="button">Go!</button>
+				     	<button id="GenCustomUrlButton" class="btn btn-lg" type="button">Customize...</button>
+				    </span>
+			  	</div>
+			  </div>
+			  <div class="panel-body hidden-md hidden-lg">
+			  	<div class="form-group" id="UrlLinkSmall">
+			  		<input type="url" id="ShortenUrlSmall" class="form-control input-lg" placeholder="Enter a URL to shorten">
+			  	</div>
+		     	<button id="GenLinkButtonSmall" class="btn btn-lg btn-block" type="button">Go!</button>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="col-md-3">
+			<div class="input-group">
+		      <input type="text" id="SearchTextBox" class="form-control">
+		      <span class="input-group-btn">
+		        <button id="SearchButton" class="btn" type="button">Search</button>
+		      </span>
+		    </div><!-- /input-group --><br />
+			<div class="list-group">
+  			  <a class="list-group-item active" id="ActiveDomain">
+			    <div id="currentDomain" class="current_domain">goli.usz</div>
+			    <span id="ShowStats" class="glyphicon glyphicon-stats graph_icon"></span>
+			  </a>
+			  <div id="links">
+			  </div>
+			  <div class="center">
+			  	<ul class="pagination" id="pagingButtons">
+				  <li><a id="PreviousPage">&laquo;</a></li>
+				  <li><a id="NextPage">&raquo;</a></li>
+			  	</ul>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div id="MainStatsDiv">
+				<div id="DomainStatsDiv" class="row show">
+					<h1 class="center" id="DomainStatsName"></h1>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-1" id="DomainDoughnutChartDiv">
+						</div>
+						<div class="col-md-3">
+							<div style="background:#">
+								<h3 class="center">Countries</h3>
+							<h5 id="NumCountries" class="center domain_stat_text">86</h5>
+							</div>
+							<div style="background:#">
+								<h3 class="center">Sources</h3>
+								<h5 id="NumSources" class="center domain_stat_text">75</h5>
+							</div>
+							<div style="background:#">
+								<h3 class="center">Unique Visitors</h3>
+								<h5 id="NumVisitors" class="center domain_stat_text">30</h5>
+							</div>
+							<div style="background:#">
+								<h3 class="center">Clicks</h3>
+								<h5 id="NumClicks" class="center domain_stat_text">9</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row hidden" id="LinkStatsDiv">
+					<div class="row">
+						<a id="StatTitle" target="_blank" class="stat_title"></a>
+						<div class="btn-group pull-right">
+							<div class="btn-group">
+							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><div id="SectionTitleButton" style="display: inline;">Clicks</div> <span class="caret"></span></button>
+							  <ul class="dropdown-menu" role="menu">
+							    <li><a id="ClicksButton">Clicks</a></li>
+							    <li><a id="CountriesButton" >Countries</a></li>
+							    <li><a id="BrowsersButton">Browsers</a></li>
+							    <li><a id="DevicesButton">Devices</a></li>
+							    <li><a id="OSButton" >Operating Systems</a></li>
+							  </ul>
+							</div>
+							<div class="btn-group">
+							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Period <span class="caret"></span></button>
+							  <ul class="dropdown-menu" role="menu">
+							    <li><a id="MonthLink">This Month</a></li>
+							    <li><a id="ThreeMonthLink" >Last Three Months</a></li>
+							    <li><a id="AllTimeLink">All time</a></li>
+							  </ul>
+							</div>
+							<button id="ShareButton" type="button" class="btn btn-primary btn-default">Share</button>
+							<button id="DeleteButton" type="button" class="btn btn-danger btn-default">Decomission</button>
+						</div>
+					</div><br />
+					<div>
+						<div id="ClickDiv" class="container hidden">
+							<h2>Clicks</h2><br />
+							<div class="chart_container">
+							        <div class="chart" id="chart"></div>
+							        <div class="y_axis" id="y_axis"></div>
+							</div>
+							<div id="legend"></div>
+						</div>
+						<div id="BrowserDiv" class="container hidden">
+							<div class="col-md-6">
+								<h2>Browsers</h2>
+								<div id="BrowserChart"></div>
+							</div>
+							<div class="col-md-4">
+								<table id="BrowserTableData" class="table">
+									<thead>
+										<tr>
+											<th>Browser</th>
+											<th>Clicks</th>
+											<th>Percentage</th>
+										</tr>
+									</thead>
+									<tbody id="BrowserTableBody">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div id="CountryDiv" class="container hidden">
+							<div>
+								<h2>Countries</h2>
+								<div class="map col-md-10" id="WorldMapStats"></div>
+							</div>
+							<div class="chart_container" id="WorldBarChartContainer"></div>
+						</div>
+						<div id="OSDiv" class="container hidden">
+							<div class="col-md-6">
+								<h2>Operating Systems</h2>
+								<div id="OSChart"></div>
+							</div>
+							<div class="col-md-4">
+								<table id="OSTableData" class="table">
+									<thead>
+										<tr>
+											<th>OS</th>
+											<th>Clicks</th>
+											<th>Percentage</th>
+										</tr>
+									</thead>
+									<tbody id="OsTableBody">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div id="RefererDiv" class="container hidden">
+							<div class="col-md-6">
+								<h2>Referers</h2>
+								<div id="RefererChart"></div>
+							</div>
+							<div class="col-md-4">
+								<table id="RefererTableData" class="table">
+									<thead>
+										<tr>
+											<th>Referer</th>
+											<th>Clicks</th>
+											<th>Percentage</th>
+										</tr>
+									</thead>
+									<tbody id="RefererTableBody">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div id="DeviceDiv" class="container hidden">
+							<div class="col-md-6">
+								<h2>Devices</h2>
+								<div id="DeviceChart"></div>
+							</div>
+							<div class="col-md-4">
+								<table id="DevicesDataTable" class="table">
+									<thead>
+										<tr>
+											<th>Device</th>
+											<th>Clicks</th>
+											<th>Percentage</th>
+										</tr>
+									</thead>
+									<tbody id="DevicesTableBody">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade middle_modal" id="NewLinkModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Share Link</h4>
+      </div>
+      <div class="modal-body">
+      	Share the link using the buttons below<br /><br />
+        <div id="NewRedirDiv" class="center new_link_size"></div><br />
+        <div class="center">
+        	<img id="FacebookShareLink" src="{{ STATIC_PREFIX }}img/fb_share.png" class="share_img_height">
+	       	<a id="TwitterShareLink" href="http://twitter.com/share"><img src="{{ STATIC_PREFIX }}img/tweet_button.png" class="share_img_height"></a>
+
+			<a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + reddit_url; return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" class="share_img_height" border="0" /> </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade middle_modal" id="CustomLinkModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Cusom Url</h4>
+      </div>
+      <div class="modal-body">
+      	<form role="form-horizontal">
+	  		<div class="form-group">
+		    	<label for="CustomUrlToShorten">Url To Shorten</label>
+		    	<input type="email" class="form-control" id="CustomUrlToShorten" placeholder="Enter Url">
+		  	</div>
+		  	<div class="form-group">
+			    <label for="CustomUrlEnding">Custom Ending</label>
+			    <input type="email" class="form-control" id="CustomUrlEnding" placeholder="Ex LinkShortener - goli.us/LinkShortener">
+			</div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="GenerateCustomLinkButton">Generate</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade middle_modal" id="DeleteLinkModal">
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Decomission Link</h4>
+      </div>
+      <div class="modal-body">
+        <div id="LinkToDelete" class="center new_link_size"></div><br />
+        It will still function, you will just not see it in your previous links.
+      </div>
+      <div class="modal-footer">
+        <button id="ConfirmDeleteLink" type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade middle_modal" id="SwitchDomainModal">
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Switch Domain</h4>
+      </div>
+      <div class="modal-body">
+        Switch Current Domain to:<br />
+        <select class="form-control" id="DomainSelectControl">
+        	
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button id="ConfirmSwitchDomain" type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/dashboardv2.js"></script>
+{% endblock %}

@@ -1,0 +1,467 @@
+
+	
+/* === Font Face  === */
+@font-face 
+	{
+	font-family: 'Novecentowide-Normal';
+	src: url('webfonts/263DA1_4_0.eot');
+	src: url('webfonts/263DA1_4_0.eot?#iefix') format('embedded-opentype'),url('webfonts/263DA1_4_0.woff') format('woff'),url('webfonts/263DA1_4_0.ttf') format('truetype');
+	}
+	
+	@font-face 
+	{
+	font-family: 'Novecentowide-Bold';
+	src: url('webfonts/263DA1_0_0.eot');
+	src: url('webfonts/263DA1_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/263DA1_0_0.woff') format('woff'),url('webfonts/263DA1_0_0.ttf') format('truetype');
+	}
+	
+	@font-face 
+	{
+	font-family: 'Novecentowide-DemiBold';
+	src: url('webfonts/263DA1_2_0.eot');
+	src: url('webfonts/263DA1_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/263DA1_2_0.woff') format('woff'),url('webfonts/263DA1_2_0.ttf') format('truetype');
+	}
+	
+
+/* === Table Caption  === */
+div.pricing_table .table_caption p
+	{
+	font-family: 'Novecentowide-DemiBold';
+	font-size: 32px;
+	font-weight:900;
+	text-align: left;
+	color:#ffffff;
+	margin-bottom:25px;
+	}
+
+div.pricing_table .table_caption span
+	{
+	font-family: 'Lato', sans-serif;
+	font-weight:400;
+	font-size: 13px;
+	margin-left:15px;
+	vertical-align: middle;
+	color:#797a79;
+	}
+
+/* === Pricing Table  === */
+/* --- Base --- */
+div.pricing_table
+	{
+	width: 100%;
+	height: 100%;
+	font-size: 13px;
+	font-weight: normal;
+	text-align: center;
+	color: #979997;
+	line-height: normal !important;
+	margin: 0px auto;
+	display:inline;
+	}
+
+/* --- hyperlinks --- */
+div.pricing_table a
+	{
+	text-decoration: none;
+	}
+	
+/* --- Lists --- */
+div.pricing_table ul
+	{
+	margin: 0px;
+	padding: 0px !important;
+	list-style-type: none !important;
+	}
+
+div.pricing_table li
+	{
+	margin: 0px;
+	padding: 0px !important;
+	list-style-type: none !important;
+	background-color:#ffffff;
+
+	}
+
+/* === Columns  === */
+/* --- Header row 1 ---  */
+div.pricing_table div.column_1 li.header_row ,
+div.pricing_table div.column_2 li.header_row,
+div.pricing_table div.column_3 li.header_row
+	{
+    height: 75px;
+	width: 100%;
+	padding: 5px 0px 0px 0px !important;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	font-family: 'Novecentowide-Normal';
+	background-color:#f5f7f6;
+	}
+
+div.pricing_table h2.caption 
+	{
+	font-size: 18px;
+	color: #fff;
+	margin-top: 5px;
+	color:#727373;
+	} 
+	
+div.pricing_table h2.caption span
+	{
+	font-size: 30px;
+	}
+	
+/* === Column 1  === */
+div.pricing_table div.column_1
+	{
+	width: 280px;
+	height: 100%;
+	float: left;
+	padding-bottom: 20px;
+	margin-right:40px;
+	}
+	
+/* === Column 2 === */
+/* === Column 3  === */
+/* === Column 4  === */
+div.pricing_table div.column_2,
+div.pricing_table div.column_3
+	{
+	width: 280px;
+	height: 100%;
+	float: left;
+	position: relative;
+	padding-bottom: 20px;
+	margin-right:40px;
+	}
+	
+/* === Data Rows  === */
+div.pricing_table div.column_1 li.image_row 
+	{
+	background-image: url(../img/01.png); 
+	background-repeat:no-repeat;
+	background-position:center; 
+	height:80px;	
+	margin-bottom:-15px;
+	}
+
+div.pricing_table div.column_2 li.image_row 
+	{
+	background-image: url(../img/02.png); 
+	background-repeat:no-repeat;
+	background-position:center; 
+	height:80px;	
+	margin-bottom:-15px;
+	}
+
+div.pricing_table div.column_3 li.image_row 
+	{			
+	background-image: url(../img/03.png); 
+	background-repeat:no-repeat;
+	background-position:center; 
+	height:80px;	
+	margin-bottom:-15px;
+	}
+
+div.pricing_table li.features_row span,
+div.pricing_table li.features_row_first span,
+div.pricing_table li.features_row_last span
+	{
+	font-size: 14px;
+	color: #727373;
+	font-weight: 700;
+	font-family: 'Lato', sans-serif;
+	line-height: 26pt;
+	}
+
+div.pricing_table div.column_1 li.features_row_first,
+div.pricing_table div.column_2 li.features_row_first,
+div.pricing_table div.column_3 li.features_row_first
+ 	{
+	width: 100%;
+	height: 100%;
+	float: left;
+	padding: 10px 0px 0px 0px !important;
+	}
+
+div.pricing_table li.features_row_last
+	{
+	padding: 0px 0px 15px 0px !important;
+	}
+	
+/* === Footer  === */
+div.pricing_table li.description_row 
+	{
+	font-size: 13px;
+	line-height: 16px;
+	width: 100%;
+	height: 39px;
+	float: left;
+	color: #b1b2b1;
+	}
+/* --- button --- */
+
+div.pricing_table li.signup_row
+	{
+	background-color:#ffffff;
+	width: 100%;
+	float: left;
+	padding: 10px 0px 0px 0px !important;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	}
+
+div.pricing_table li.signup_row a.sign_up
+	{
+	display: block;
+	width: 220px;
+	height: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	font-size: 16px;
+	color: #ffffff;
+	text-align: center;
+	padding: 10px 0px 0px 0px !important;
+    margin-bottom:20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#d4d6d5;
+	}
+div.footer_caption
+	{
+	font-size: 12px;
+	color: #979997;
+	float: left;
+	width: 100%;
+	margin-top:-5px;
+	}
+	
+/* === Tooltip === */
+div.pricing_table a.tooltip
+	{
+	position: relative;
+	text-decoration: none;
+	color: #979997;
+	font-size: 13px;
+	font-weight: normal;
+	}
+	
+div.pricing_table a.tooltip:hover:after, div.pricing_table a.tooltip:hover:before
+	{
+    display: block;
+	}
+
+/* === Tooltip Box === */
+div.pricing_table a.tooltip:before
+	{
+	content: attr(data-tooltip);
+	display: block;
+	width: 160px;
+    position: absolute;
+	z-index: 3;
+    bottom: 150%;
+	left: 50%;
+	margin-left: -110px;
+	padding-left: 30px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:30px;
+	text-align: center;
+    color: #ffffff;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height:12px;
+    display: none;
+	background-color:#727373;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	}
+	
+/* === Tooltip Arrow === */
+div.pricing_table a.tooltip:after
+	{
+	content: "";
+	display: block;
+    position: absolute;
+	width: 0;
+    height: 0;
+	z-index: 3;
+	bottom: 20px;
+	left: 50%;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+	border-top: 5px solid #727373;
+    display: none;
+	background: transparent;	
+	}
+	
+	
+/* === From this code on, concerns responsive. I only overrided the necessary styles to make it responsive ===*/
+/* Large desktop */
+@media (min-width: 1200px) {  }
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+  body 
+  {
+    font-size:12px;
+    padding-top: 0px;
+  }
+}
+  
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+  body {
+    padding-top: 0;
+    font-size:12px;
+  }
+  
+ 
+/* === Table Caption  === */
+.table_caption
+	{
+	width:90%; 
+	font-size: 30px;
+	line-height:110%;
+	}
+	
+ .table_caption span
+	{
+	font-size: 12px;
+	margin-left:0px;
+	}
+
+	
+/* === Pricing Table  === */
+/* === Base === */
+div.pricing_table
+	{
+	width: 90%;
+	height: 90%;
+	text-align: center;
+	padding: 5% 5%;	
+	display:inline-block;
+	}
+
+}
+
+ /* Landscape phones and down */
+@media (max-width : 480px)
+{
+body
+	{
+	margin-left: 10%;
+}
+
+/* === Columns === */
+div.pricing_table
+	{
+	width: 100%;
+	height: 100;
+}
+
+div.column
+	{
+	width: 80%;
+	}
+	
+div.pricing_table div.column_1, 
+div.pricing_table div.column_2, 
+div.pricing_table div.column_3
+	{
+	width: 80%;
+	}
+	
+div.pricing_table li.signup_row a.sign_up
+	{
+	width: 80%;
+	}
+	
+div.pricing_table a.tooltip:before
+	{
+	width: 120px;
+	margin-left: -90px;
+	}
+}
+
+@media (max-width : 250px)
+{
+body
+	{
+	margin-left: 5%;
+	}
+
+div.column
+	{
+	width: 90%;
+	}
+
+
+div.pricing_table div.column li.price
+	{
+	margin-left: 35%;
+	width: 50px;
+	height: 50px;
+	font-size: 20px;
+	line-height:50px;
+	}
+	
+div.pricing_table div.column_1, 
+div.pricing_table div.column_2, 
+div.pricing_table div.column_3
+	{
+	width: 90%;
+	}
+	
+div.pricing_table li.signup_row a.sign_up
+	{
+	width: 90%;
+	}
+	
+	
+div.pricing_table a.tooltip:before
+	{
+	width: 90px;
+	margin-left: -75px;
+	}
+}
+
+/* === Columns Hover - Header === */
+div.pricing_table div.column_1:hover li.header_row,
+div.pricing_table div.column_2:hover li.header_row, 
+div.pricing_table div.column_3:hover li.header_row
+	{
+	background-color: #42a2f4;
+	}
+	
+div.pricing_table div.column_1:hover li.header_row h2.caption, 
+div.pricing_table div.column_2:hover li.header_row h2.caption, 
+div.pricing_table div.column_3:hover li.header_row h2.caption
+	{
+	color: #275e8f;
+	}
+	
+div.pricing_table div.column_1:hover li.header_row h2.caption span, 
+div.pricing_table div.column_2:hover li.header_row h2.caption span, 
+div.pricing_table div.column_3:hover li.header_row h2.caption span
+	{
+	color: #ffffff;
+	}
+	
+/* === Columns Hover - Footer === */
+div.pricing_table div.column_1:hover li.signup_row a.sign_up,
+div.pricing_table div.column_2:hover li.signup_row a.sign_up, 
+div.pricing_table div.column_3:hover li.signup_row a.sign_up
+	{
+	background-color:#42a2f4;
+	color: #ffffff;
+	}

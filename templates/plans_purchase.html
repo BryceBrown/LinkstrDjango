@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+	<div class="row">
+		{{ cost_display }}
+	</div>
+	<div class="row">
+		<form action="{{ post_action }}" method="POST">
+        {% csrf_token %}
+		  <script
+		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		    data-key="pk_test_PQUIgXNU45hZPqG4B4AY6dBE"
+		    data-image="{{ STATIC_PREFIX }}img/LinkstrLogo_120.png"
+		    data-name="Linkstr"
+		    data-description="{{ plan_name }}"
+		    data-amount="">
+		  </script>
+		</form>
+	</div>
+</div><br /><br /><br /><br />
+
+<!-- Google Code for Beta Signups Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1050432227;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "IcgACJWVlggQ46Xx9AM";
+var google_conversion_value = {{ cost }};
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1050432227/?value=1&amp;label=IcgACJWVlggQ46Xx9AM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+{% endblock %}

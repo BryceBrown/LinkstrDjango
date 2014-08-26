@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/dashboard.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_PREFIX }}css/rickshaw.min.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_PREFIX }}css/jquery-jvectormap-1.2.2.css">
+<style>
+.chart_container {
+        position: relative;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+}
+.chart {
+        display: inline-block;
+        margin-left: 40px;
+}
+.y_axis {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+}
+.main_body{
+  min-height: 700px;
+}
+#legend {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 0 10px;
+}
+</style>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ STATIC_PREFIX }}js/thirdparty/rickshaw.min.js"></script>
+<script src="{{ STATIC_PREFIX }}js/thirdparty/Chart.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/jquery-linkify.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/bootstrap-tour.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/thirdparty/jquery-jvectormap-1.2.2.min.js"></script>
+  <script type="text/javascript"  src="{{ STATIC_PREFIX }}js/thirdparty/jquery-jvectormap-world-mill-en.js"></script>
+<script src="{{ STATIC_PREFIX }}js/thirdparty/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+        var reddit_url = "http://www.google.com"
+</script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/utility.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/dashboardv3.js"></script>
+{% endblock %}
+{% block body %}
+<div ng-app="linkstr_dashboard" ng-controller="mainCtrl" class="container main_body">
+    <div class="row">
+      <div class="alert alert-warning" ng-show="interstitials.length == 0" ng-click="$location.path('/MyAds')">
+        It looks like you don't have any interstitials Configured. Click <a href='#/MyAds'>here</a> to create one
+      </div>
+    </div>
+    <div class="row">
+            <div class="col-md-3"><!-- User info -->
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        {% if company.StripeBillingToken == 'zzz' %}
+                        <a href='/Pricing/'><button class='btn btn-primary pull-right'>30 Day Trial</button></a>
+                        {% endif %}
+                        <div id="UserInfo">{{ user.username }}</div>
+                        <a href="/Settings">Settings</a>
+                      </div>
+                    </div>
+            </div>
+            <div class="col-md-9">
+                    <div class="panel panel-default">
+                      <div class="panel-body hidden-xs hidden-sm">
+                            <div class="input-group" id="UrlLink">
+                            {% csrf_token %}
+                                    <input type="text" id="ShortenUrl" class="form-control input-lg" placeholder="Enter a URL to shorten" ng-model="RedirectUrl" />
+                                    <span class="input-group-btn">
+                                    <button id="GenLinkButton" class="btn btn-lg" type="button" ng-click="shortenLink()">Go!</button>
+                                    <button id="GenCustomUrlButton" class="btn btn-lg" type="button" ng-click="showCustomize()">Customize...</button>
+                                </span>
+                            </div>
+                      </div>
+                      <div class="panel-body hidden-md hidden-lg">
+                            <div class="form-group" id="UrlLinkSmall">
+                                    <input type="url" id="ShortenUrlSmall" class="form-control input-lg" placeholder="Enter a URL to shorten">
+                            </div>
+                    <button id="GenLinkButtonSmall" class="btn btn-lg btn-block" type="button" ng-click="shortenLink()">Go!</button>
+                      </div>
+                    </div>
+            </div>
+    </div>
+        <div class="row">
+                <div class="col-md-3">
+                        <div class="list-group">
+                          <a class="list-group-item active" id="ActiveDomain" ng-click="switchDomain()">
+                            <div id="currentDomain" class="current_domain">{{ current_domain_angular }}</div>
+                          </a>
+                          <a class="list-group-item" href="#/Stats">Stats</a>
+                          <a class="list-group-item" href="#/MyAds">Interstitials</a>
+                          <a class="list-group-item" href="#/Links">Links</a>
+                          <!--<a class="list-group-item" ng-click="reportsClick()">Reports</a>-->
+                          <a class="list-group-item" href="#/Domains">Domains</a>
+                        </div>
+                </div>
+                <div class="col-md-9" ng-view></div>
+        </div>
+
+
+  <div class="modal fade middle_modal" id="CustomLinkModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="linkTitle">Cusom Url</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form-horizontal">
+          <div class="form-group">
+            <label for="CustomUrlToShorten">Url To Shorten</label>
+            <input type="text" class="form-control" id="CustomUrlToShorten" placeholder="Enter Url" ng-model="RedirectUrl">
+          </div>
+          <div class="form-group">
+            <label for="CustomUrlEnding">Custom Ending</label>
+            <input type="text" class="form-control" id="CustomUrlEnding" placeholder="Ex LinkShortener - goli.us/LinkShortener" ng-model="UrlKey">
+        </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="GenerateCustomLinkButton" ng-click="shortenCustomizeLink()">Generate</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade middle_modal" id="SwitchDomainModal">
+    <div class="modal-dialog">
+     <div class="modal-content">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="linkTitle">Switch Domain</h4>
+        </div>
+        <div class="modal-body">
+          Switch Current Domain to:<br />
+            <select ng-options="domain.Domain for domain in domains" class="form-control" ng-model="currentDomain"></select>
+        </div>
+        <div class="modal-footer">
+          <button id="ConfirmSwitchDomain" type="button" class="btn btn-default" ng-click="selectDomain()">Confirm</button>
+          <button type="button" class="btn btn-default" ng-click="closeSelectDomainModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade middle_modal" id="NewLinkModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="linkTitle">Share Link</h4>
+        </div>
+        <div class="modal-body">
+          Share the link using the buttons below<br /><br />
+          <div id="NewRedirDiv" class="center new_link_size" ng-bind="linkText"></div><br />
+          <div class="center">
+            <img id="FacebookShareLink" src="{{ STATIC_PREFIX }}img/fb_share.png" class="share_img_height">
+              <div class='fb-share-button' data-href='{{ link_text }}' data-type='button'></div>
+            </img>
+            <a id="TwitterShareLink" href="http://twitter.com/share">
+              <img src="{{ STATIC_PREFIX }}img/tweet_button.png" class="share_img_height">
+            </a>
+
+          <a href="http://www.reddit.com/submit" onclick="redditShare()"> 
+            <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" class="share_img_height" border="0" /> 
+          </a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="NeedHelpAlert" class="alert alert-warning">
+  Need Help? Have a Question? Send us an email <a href="mailto:support@golinkstr.com">here</a>.
+  </div>
+</div>
+
+{% endblock %}

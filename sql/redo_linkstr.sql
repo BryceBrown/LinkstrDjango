@@ -1,0 +1,2 @@
+DROP DATABASE linkstr;
+CREATE DATABASE linkstr;

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/pricing.css">
+<script src="{{ STATIC_PREFIX }}js/thirdparty/Chart.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/utility.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/pricing.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/pricing_table_main.css">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<br />
+	{% if request.GET.expired %}
+	    <div class="row">
+	      <div class="alert alert-warning" ng-show="interstitials.length == 0" ng-click="$location.path('/MyAds')">
+	        It looks like your trial has expired :(. If you wish to continue using Linkstr, please sign up for a paid account.
+	      </div>
+	    </div>
+	{% endif %}
+	<br />
+	<div class="row">
+		<div class="col-md-4 col-md-offset-5">
+			<h1>One Simple price. </h1>
+			<br />
+			<div class="pricing_table">
+				<div class="column_2">
+					<ul>
+						<!-- Column 2 Header -->
+						<li class="header_row" style="height:60px;"><h2 class="caption"><span> $20 / MONTH</span></h2></li>
+						<!-- Features Rows -->
+						<li class="image_row"></li>
+						<li class="features_row_first"><span>5</span> users</li>
+						<li class="features_row"><span>Unlimited</span> links</li>
+						<li class="features_row"><span>5</span> Custom Domains</li>
+						<li class="features_row"><span>Unlimited</span> Interstitials</li>
+						<!-- Column 2 Footer -->
+						<li class="signup_row"><a class="sign_up" style="height:40px;" href="/Signup?redir=/Dashboard">FREE TRIAL</a><br /></li>
+					</ul>
+		    	</div>
+			</div>
+		</div>
+	</div>
+	<br /><br /><br /><br />
+</div>
+{% endblock %}

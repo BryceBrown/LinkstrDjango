@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block angular %}ng-app="linkstrTourApp"{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}js/frontend/tour.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/tour.css">
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/tour.css">
+
+{% endblock %}
+
+{% block body %}
+{% csrf_token %}
+{% verbatim %}
+<style ng-bind-html-unsafe="style"></style>
+<div class="container" ng-view></div>
+{% endverbatim %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container" style="min-height:700px">
+	<div class="row">
+		<h1>Welcome to Beta!</h1>
+	</div>
+	<div class="row center">
+		<img src="{{ STATIC_URL }}img/celebration.gif">
+	</div>
+	<br />
+	<div class="row">
+		Welcome to the Linkstr Beta! Sign in and head over to the <a href="/Dashboard">Dashboard</a> to start sharing links!<br />
+		You can also view our documentation <a href="/Documentation">here</a>.
+	</div>
+</div>
+
+
+<!-- Google Code for Beta Signups Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1050432227;
+var google_conversion_language = "en";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "IcgACJWVlggQ46Xx9AM";
+var google_conversion_value = {{ cost }};
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1050432227/?value=1&amp;label=IcgACJWVlggQ46Xx9AM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+{% endblock %}

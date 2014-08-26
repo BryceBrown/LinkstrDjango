@@ -1,0 +1,8 @@
+cron:
+- description: daily summary job
+  url: /Tasks/save_admin_stats/
+  schedule: every 24 hours
+
+- description: daily expired account job
+  url: /Tasks/check_expired_companies/
+  schedule: every 24 hours

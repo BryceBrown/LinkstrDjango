@@ -1,0 +1,75 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<h1>Interstitials</h1>
+		</div>
+		<div class="col-md-3 col-md-offset-4">
+			<button class="btn btn-lg" ng-click="newInterstitial()">New Interstitial</button>
+		</div>
+	</div>
+</div>
+<br />
+<table class="table table-condensed table-hover">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Ad Url</td>
+			<td>Click Url</td>
+			<td>Display Chance</td>
+			<td>Active</td>
+		</tr>
+	</thead>
+	<tbody id="IntersticialRows" ng-repeat="stitial in interstitials">
+		<tr ng-click="editInterstitial(stitial, $index)">
+			<td>{{stitial.Name}}</td>
+			<td>{{stitial.Url}}</td>
+			<td>{{stitial.AdClickUrl}}</td>
+			<td>{{stitial.DisplayChance}}</td>
+			<td>{{stitial.Active}}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="modal fade middle_modal" id="InterstitialModal">
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Edit Interstitial</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="alert alert-danger" ng-show="errorInSubmission">
+      		All fields are required
+      	</div>
+      	<form role="form" name="interstitialForm">
+      		<div class="form-group">
+      			<label for="interstitialName">Name</label>
+      			<input type="text" class="form-control" id="interstitialName" name="name" placeholder="Name" ng-model="activeInterstitial.Name" required>
+      		</div>
+      		<div class="form-group">
+      			<label for="Url">Url</label>
+      			<input type="url" class="form-control" id="Url" placeholder="Enter the URL of your ad" ng-model="activeInterstitial.Url" required>
+      		</div>
+      		<div class="form-group">
+      			<label for="AdUrl">Ad Url</label>
+      			<input type="url" class="form-control" id="AdUrl" placeholder="Enter the page users should be directed to on an ad click" ng-model="activeInterstitial.AdClickUrl" required>
+      		</div>
+      		<div class="form-group">
+      			<label for="AdUrl">Display Chance</label>
+      			<input type="number" class="form-control" id="AdUrl" placeholder="Enter the page users should be directed to on an ad click (1-100)" ng-model="activeInterstitial.DisplayChance" required>
+      		</div>
+		  <div class="checkbox">
+		    <label>
+		      <input type="checkbox" ng-model="activeInterstitial.Active"> Active
+		    </label>
+		  </div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button id="DeleteInterstitial" type="button" class="btn btn-danger" ng-click="deleteInterstitial()" data-dismiss="modal" ng-show="activeInterstitial.id">Delete</button>
+        <button id="SaveInterstitial" type="button" class="btn btn-primary" ng-click="saveInterstitial()">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

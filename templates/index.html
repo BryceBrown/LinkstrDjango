@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/index.css">
+{% endblock %}
+
+{% block body %}
+	<img src="{{ STATIC_PREFIX }}img/Home-Banner.jpg" alt="Responsive image" width="100%">
+	<img src="{{ STATIC_PREFIX }}img/logo_big.png" alt="Responsive image" class="big_logo">
+<div class="container">
+	<div class="row">
+	</div><br />
+	<div class="row">
+		<div class="col-md-4">
+			<h2>What is Linkstr?</h2>
+			<img src="{{ STATIC_PREFIX }}img/what_is.jpg" class="img-responsive" height="360px"><br />
+			<p>Linkstr is a link shortening service aimed at professionals and businesses that want to turn links they share into an additional channel of advertising. Turn clicks on content into views of a specific, targeted advertisement campaign or show 3rd party advertisements in order to directly generate revenue.</p>
+		</div>
+		<div class="col-md-4">
+			<h2>Interstitial Pages</h2>
+			<img src="{{ STATIC_PREFIX }}img/People.jpg" class="img-responsive" height="360px"><br />
+			<p>Linkstr allows you to include interstitial pages when users click on links you have shortened. The content of these pages can be anything from a sale to a third party advertisement that allows you to directly generate revenue. See an example <a href="http://demo.goli.us/9fhzYU">here</a>.</p>
+		</div>
+		<div class="col-md-4">
+			<h2>In Depth Analytics</h2>
+			<img src="{{ STATIC_PREFIX }}img/Graph.jpg" class="img-responsive" height="360px"><br />
+			<p>With our web dashboard and upcoming native mobile applications can gather insight into where your users are, what kind of browsers they use, and where they are coming from. Built on state-of-the-art HTML5 technologies, Linkstr's responsive design works on even the smallest of screen sizes.</p>
+		</div>
+	</div>
+	<div class="row">
+	</div><br />
+	<div class="row">
+	</div><br />
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<a href="/Signup/"><button class="btn btn-large btn-primary btn-block learn_more_button">Try now for Free!</button></a>
+		</div>
+	</div><br /><br /><br /><br />
+
+
+{% endblock %}

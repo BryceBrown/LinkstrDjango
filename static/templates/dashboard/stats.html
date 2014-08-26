@@ -1,0 +1,86 @@
+<div class="container">
+	<div class="row" ng-hide="interstitials.length == 0">
+		<div class="col-md-3">
+			<button ng-click="changeInterstitial()" class="btn">Interstitial: {{activeInterstitial.Name}}</button>
+		</div>
+		<div class="col-md-3 col-md-offset-3">
+			 <button class="btn" ng-click="previewInterstitial()">Preview</button>
+			 <button class="btn" ng-click="configureInterstitial()">Configure</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Overall Stats</h2>
+			<div id="OverallStatsChart" ng-hide="totalClicks == 0">
+				
+			</div>
+		</div>
+		<div class="col-md-3">
+			<table id="BrowserTableData" class="table">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Clicks</th>
+						<th>Percentage</th>
+					</tr>
+				</thead>
+				<tbody id="OverallTableBody">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="alert alert-warning col-md-9" ng-show="interstitials.length == 0">
+		No interstitials have been configured.
+	</div>
+</div>
+
+
+<div class="modal fade middle_modal" id="InterstitialModal">
+  <div class="modal-dialog">
+   <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Switch Interstitial</h4>
+      </div>
+      <div class="modal-body">
+        Switch Current Interstitial to:<br /><br />
+        <select ng-options="stitial.Name for stitial in interstitials" class="form-control" ng-model="activeInterstitial">
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button id="ConfirmSwitchDomain" type="button" class="btn btn-default" ng-click="loadInterstitialStats()" data-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade middle_modal" id="ConfigureInterstitialModal">
+  <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="linkTitle">Switch Domain</h4>
+      </div>
+      <div class="modal-body">
+	        <h2>{{activeInterstitial.Name}}</h2>
+	        <form role="form">
+	      		<div class="form-group">
+	      			<label>
+	      				<input type="checkbox" name="Active" ng-model="activeInterstitial.Active">Active
+	      			</label>
+	      		</div>
+	      		<div class="form-group">
+	      			<label for="DisplayChance">Display Chance</label>
+	      			<input type="number" name="DisplayChance" ng-model="activeInterstitial.DisplayChance" />
+	      		</div>
+	      	</form>
+	    </div>
+      <div class="modal-footer">
+        <button id="ConfirmSwitchDomain" type="button" class="btn btn-default" ng-click="saveInterstitial()" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

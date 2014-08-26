@@ -1,0 +1,30 @@
+/* === Columns Hover - Header === */
+div.pricing_table div.column_1:hover li.header_row,
+div.pricing_table div.column_2:hover li.header_row, 
+div.pricing_table div.column_3:hover li.header_row
+	{
+	background-color: #42a2f4;
+	}
+	
+div.pricing_table div.column_1:hover li.header_row h2.caption, 
+div.pricing_table div.column_2:hover li.header_row h2.caption, 
+div.pricing_table div.column_3:hover li.header_row h2.caption
+	{
+	color: #275e8f;
+	}
+	
+div.pricing_table div.column_1:hover li.header_row h2.caption span, 
+div.pricing_table div.column_2:hover li.header_row h2.caption span, 
+div.pricing_table div.column_3:hover li.header_row h2.caption span
+	{
+	color: #ffffff;
+	}
+	
+/* === Columns Hover - Footer === */
+div.pricing_table div.column_1:hover li.signup_row a.sign_up,
+div.pricing_table div.column_2:hover li.signup_row a.sign_up, 
+div.pricing_table div.column_3:hover li.signup_row a.sign_up
+	{
+	background-color:#42a2f4;
+	color: #ffffff;
+	}

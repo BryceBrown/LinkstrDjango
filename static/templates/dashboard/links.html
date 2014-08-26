@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<h1>Links</h1>
+		</div>
+		<div class="col-md-3 col-md-offset-4">
+			<button type="button" class="btn" ng-click="previousPage()">Previous</button>
+			<button type="button" class="btn" ng-click="nextPage()">Next</button>
+		</div>
+
+	</div>
+</div>
+<br />
+<table class="table table-condensed table-hover">
+	<thead>
+		<tr>
+			<td>Title</td>
+			<td>Url</td>
+			<td>Url Key</td>
+		</tr>
+	</thead>
+	<tbody id="LinkRows" ng-repeat="link in filteredLinks">
+		<tr ng-click="showLinkStats(link)">
+			<td>{{link.LinkTitleShort}}</td>
+			<td>{{link.RedirectUrlShort}}</td>
+			<td>{{link.UrlKey}}</td>			
+		</tr>
+	</tbody>
+</table>
